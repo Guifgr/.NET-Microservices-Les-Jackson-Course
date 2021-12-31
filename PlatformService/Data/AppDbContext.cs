@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using PlataformService.Models;
+using PlatformService.Models;
 
-namespace PlataformService.Data
+namespace PlatformService.Data
 {
     public class AppDbContext : DbContext
     {
@@ -10,7 +10,7 @@ namespace PlataformService.Data
             
         }
 
-        public DbSet<Plataform> Plataforms {get; set;}
+        public DbSet<Platform> Platforms {get; set;}
         
     }
 }

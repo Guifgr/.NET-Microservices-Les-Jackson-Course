@@ -6,11 +6,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using PlataformService.Data;
-using PlataformService.Data.Interface;
-using PlataformService.Data.Repository;
+using PlatformService.Data;
+using PlatformService.Data.Interface;
+using PlatformService.Data.Repository;
+using PlatformService.SyncDataServices.Http;
 
-namespace PlataformService
+namespace PlatformService
 {
   public class Startup
   {
@@ -27,13 +28,16 @@ namespace PlataformService
       services.AddDbContext<AppDbContext>(opt =>
       opt.UseInMemoryDatabase("InMemory"));
 
-      services.AddScoped<IPlataformRepository, PlataformRepository>();
+      services.AddHttpClient<ICommandDataClient, HttpCommandDataClient>();
+      services.AddScoped<IPlatformRepository, PlatformRepository>();
 
       services.AddControllers();
       services.AddSwaggerGen(c =>
       {
-        c.SwaggerDoc("v1", new OpenApiInfo { Title = "PlataformService", Version = "v1" });
+        c.SwaggerDoc("v1", new OpenApiInfo { Title = "PlatformService", Version = "v1" });
       });
+
+      Console.WriteLine($"--> CommandService Endpoint {Configuration["CommandService"]} upd2");
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -42,10 +46,10 @@ namespace PlataformService
       {
         app.UseDeveloperExceptionPage();
         app.UseSwagger();
-        app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "PlataformService v1"));
+        app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "PlatformService v1"));
       }
 
-      app.UseHttpsRedirection();
+      //app.UseHttpsRedirection();
 
       app.UseRouting();
 

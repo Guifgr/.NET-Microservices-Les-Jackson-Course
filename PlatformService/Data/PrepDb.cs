@@ -2,9 +2,9 @@ using System;
 using System.Linq;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
-using PlataformService.Models;
+using PlatformService.Models;
 
-namespace PlataformService.Data
+namespace PlatformService.Data
 {
   public static class PrepDb
   {
@@ -17,14 +17,14 @@ namespace PlataformService.Data
     }
     private static void SeedData(AppDbContext context)
     {
-      if (!context.Plataforms.Any())
+      if (!context.Platforms.Any())
       {
         Console.WriteLine("--> Seeding Data...");
 
-        context.Plataforms.AddRange(
-          new Plataform() { Name = "DotNet",Publisher = "Ms", Cost = "Free"},
-          new Plataform() { Name = "SqlServer",Publisher = "Ms", Cost = "Free"},
-          new Plataform() { Name = "Kubernetes",Publisher = "CNCF", Cost = "Free"}
+        context.Platforms.AddRange(
+          new Platform() { Name = "DotNet",Publisher = "Ms", Cost = "Free"},
+          new Platform() { Name = "SqlServer",Publisher = "Ms", Cost = "Free"},
+          new Platform() { Name = "Kubernetes",Publisher = "CNCF", Cost = "Free"}
         );
         context.SaveChanges();
       }
